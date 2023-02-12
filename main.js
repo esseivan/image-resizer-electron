@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -77,6 +77,11 @@ const menu = [
     ]
   },
 ]
+
+// Respond to ipcRenderer image:resize
+ipcMain.on('image:resize', (event, options) => {
+  console.log(options);
+})
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
