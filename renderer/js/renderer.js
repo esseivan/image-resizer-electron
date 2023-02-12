@@ -5,7 +5,6 @@ const filenameSpan = document.querySelector('#filename');
 const heightInput = document.querySelector('#height');
 const widthInput = document.querySelector('#width');
 
-
 function loadImage(e) {
   const file = e.target.files[0];
 
@@ -24,6 +23,7 @@ function loadImage(e) {
 
   form.style.display = 'block'; // shows the form
   filenameSpan.innerText = file.name;
+  outputPathSpan.innerText = path.join(os.homedir(), 'imageResizer');
 }
 
 // make sure file is image
