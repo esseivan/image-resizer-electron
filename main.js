@@ -4,6 +4,11 @@ const fs = require('fs');
 const ResizeImg = require('resize-img');
 const { app, BrowserWindow, Menu, ipcMain, shell } = require('electron');
 
+//process.env.NODE_ENV = 'production';
+
+const isDev = process.env.NODE_ENV !== 'production';
+const isMac = process.platform === 'darwin';
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -26,8 +31,14 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'renderer/index.html'));
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (isDev) {
+    mainWindow.on('ready-to-show', () => {
+      // Open the DevTools, call with ready-to-show
+      mainWindow.webContents.openDevTools();
+    });
+  }
+
+  console.log('Init done');
 };
 
 function createAboutWindow() {
