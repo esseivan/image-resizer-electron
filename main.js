@@ -20,6 +20,17 @@ const createWindow = () => {
   mainWindow.webContents.openDevTools();
 };
 
+function createAboutWindow() {
+  // Create the about window.
+  const aboutWindow = new BrowserWindow({
+    width: 300,
+    height: 300,
+  });
+
+  // and load the index.html of the app.
+  aboutWindow.loadFile(path.join(__dirname, 'renderer/about.html'));
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -47,6 +58,16 @@ const menu = [
         label: 'Quit',
         click: app.quit,
         accelerator: 'CmdOrCtrl+W',
+      }
+    ]
+  },
+  {
+    label: 'Help',
+    submenu: [
+      {
+        label: 'About',
+        click: createAboutWindow,
+
       }
     ]
   },
