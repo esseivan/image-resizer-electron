@@ -1,5 +1,5 @@
 const form = document.querySelector('#img-form');
-const imgInput = document.querySelector('#img');
+const imageInput = document.querySelector('#img');
 const outputPathSpan = document.querySelector('#output-path');
 const filenameSpan = document.querySelector('#filename');
 const heightInput = document.querySelector('#height');
@@ -24,6 +24,29 @@ function loadImage(e) {
   form.style.display = 'block'; // shows the form
   filenameSpan.innerText = file.name;
   outputPathSpan.innerText = path.join(os.homedir(), 'imageResizer');
+}
+
+// Send image data to main
+function sendImage(e) {
+  e.preventDefault();
+
+  const width = widthInput.value;
+  const height = heightInput.value;
+  const imagePath = imageInput.files[0].path;
+
+  if (!img.files[0]) {
+    alertError('Please upload an image');
+    return;
+  }
+
+  if (width === '' || height === '') {
+    alertError('Please fill in a height and width');
+    return;
+  }
+
+  // Send to main using ipcRenderer
+
+
 }
 
 // make sure file is image
@@ -59,4 +82,5 @@ function alertSuccess(message) {
   });
 }
 
-imgInput.addEventListener('change', loadImage);
+imageInput.addEventListener('change', loadImage);
+form.addEventListener('submit', sendImage);
